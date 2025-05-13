@@ -1,9 +1,18 @@
+import os
 from pathlib import Path
 from typing import Annotated, Any
 
 import pymupdf4llm
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
+
+PRO_UNLOCKED = False
+if pymupdf_pro_password := os.getenv("PYMUPDF_PRO_PASSWORD"):
+    import pymupdf.pro
+
+    pymupdf.pro.unlock(pymupdf_pro_password)
+    # FIXME: Detect unlock failure
+    PRO_UNLOCKED = True
 
 mcp = FastMCP("pymupdf4llm-mcp")
 
@@ -16,6 +25,9 @@ mcp = FastMCP("pymupdf4llm-mcp")
         "This tool will also convert the PDF to images and save them in the `image_path` directory. "
         "For larger PDF files, use `save_path` to save the markdown file then read it partially. "
     )
+    + "\n**This tool now supports DOC/DOCX, XLS/XLSX, PPT/PPTX, HWP/HWPX as PRO version.**"
+    if PRO_UNLOCKED
+    else ""
 )
 def convert_pdf_to_markdown(
     file_path: Annotated[str, Field(description="Absolute path to the PDF file to convert")],

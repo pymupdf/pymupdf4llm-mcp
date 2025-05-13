@@ -33,3 +33,5 @@ Configure your cursor/windsurf/... and other MCP client to this server:
   }
 }
 ```
+
+Set `PYMUPDF_PRO_PASSWORD` environment variable to enable pro features: parse DOC/DOCX, XLS/XLSX, PPT/PPTX, HWP/HWPX and more.

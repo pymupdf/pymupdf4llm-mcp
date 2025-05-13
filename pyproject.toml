@@ -20,6 +20,7 @@ dependencies = [
     "mcp[cli]>=1.6.0",
     "pydantic>=2.11.3",
     "pymupdf4llm>=0.0.21",
+    "pymupdfpro>=1.25.5",
     "typer>=0.15.2",
 ]
 
