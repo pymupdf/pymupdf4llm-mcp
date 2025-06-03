@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -5,7 +6,9 @@ import pymupdf4llm
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
-mcp = FastMCP("pymupdf4llm-mcp")
+# Fix: Set environment variable and explicit log level to prevent validation error
+os.environ.setdefault('LOG_LEVEL', 'INFO')
+mcp = FastMCP("pymupdf4llm-mcp", log_level='INFO')
 
 
 @mcp.tool(
