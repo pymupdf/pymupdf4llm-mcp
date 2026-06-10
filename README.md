@@ -33,3 +33,15 @@ Configure your cursor/windsurf/... and other MCP client to this server:
   }
 }
 ```
+
+## Testing
+
+Ensure you have:
+
+`pip install inline-snapshot`
+
+Then from the root folder of the repo run:
+
+```bash
+python -m pytest
+```
