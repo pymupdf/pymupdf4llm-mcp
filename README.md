@@ -33,3 +33,26 @@ Configure your cursor/windsurf/... and other MCP client to this server:
   }
 }
 ```
+
+## Testing
+
+Ensure you have Snapshot installed:
+
+`pip install inline-snapshot`
+
+Then from the root folder of the repo run:
+
+```bash
+python -m pytest
+```
+
+## Publishing
+
+Assuming you have an access token.
+
+Bump pyproject.toml:3 `version` first, then:
+
+```bash
+make build
+make publish
+```
