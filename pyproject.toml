@@ -1,6 +1,6 @@
 [project]
 name = "pymupdf4llm-mcp"
-version = "1.27.2"
+version = "1.28.0"
 description = "MCP Server for pymupdf4llm"
 authors = [{ name = "Artifex Software, Inc.", email = "info@artifex.com" }]
 readme = "README.md"
@@ -19,7 +19,7 @@ classifiers = [
 dependencies = [
     "mcp[cli]>=1.6.0",
     "pydantic>=2.11.3",
-    "pymupdf4llm==1.27.2.3",
+    "pymupdf4llm==1.28.0",
     "typer>=0.15.2",
 ]
 

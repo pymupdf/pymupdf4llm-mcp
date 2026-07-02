@@ -11,7 +11,7 @@ dummy_pdf_path = _HERE / "dummy.pdf"
 
 
 def test_pymupdf4llm_version_is_pinned():
-    assert m.version("pymupdf4llm") == "1.27.2.3"
+    assert m.version("pymupdf4llm") == "1.28.0"
 
 
 def test_convert_pdf_to_markdown():
