@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -5,7 +6,9 @@ import pymupdf4llm
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
-mcp = FastMCP("pymupdf4llm-mcp")
+# Fix: Set environment variable and explicit log level to prevent validation error
+os.environ.setdefault('LOG_LEVEL', 'INFO')
+mcp = FastMCP("pymupdf4llm-mcp", log_level='INFO')
 
 
 @mcp.tool(
@@ -47,7 +50,7 @@ def convert_pdf_to_markdown(
         if save_path:
             save_path: Path = Path(save_path).expanduser().resolve()
             save_path.parent.mkdir(parents=True, exist_ok=True)
-            content = pymupdf4llm.to_markdown(file_path, write_images=True, image_path=image_path.as_posix())
+            # Fix: Remove duplicate PDF processing - content is already generated above
             with open(save_path, "w", encoding="utf-8") as f:
                 f.write(content)
             return {
