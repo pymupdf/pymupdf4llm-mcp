@@ -14,16 +14,18 @@ def test_pymupdf4llm_version_is_pinned():
     assert m.version("pymupdf4llm") == "1.28.0"
 
 
-def test_convert_pdf_to_markdown():
-    result = convert_pdf_to_markdown(dummy_pdf_path.as_posix())
+def test_convert_pdf_to_markdown(tmp_path):
+    result = convert_pdf_to_markdown(dummy_pdf_path.as_posix(), workspace_root=tmp_path.as_posix())
     assert result["success"] is True
     assert "markdown_content" in result
     assert result["markdown_content"] == snapshot("""\
 # **Dummy PDF file** \n\
 
 """)
+    assert Path(result["markdown_path"]) == tmp_path / "extracted" / "dummy" / "dummy.md"
+    assert Path(result["markdown_path"]).is_file()
 
-    # temporary file to write the markdown content
+    # save_path is still honoured verbatim for existing callers
     with tempfile.NamedTemporaryFile(suffix=".md", delete=False) as temp_file:
         temp_file_path = Path(temp_file.name)
         result = convert_pdf_to_markdown(dummy_pdf_path.as_posix(), save_path=temp_file_path.as_posix())

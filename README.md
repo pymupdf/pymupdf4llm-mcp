@@ -34,6 +34,39 @@ Configure your cursor/windsurf/... and other MCP client to this server:
 }
 ```
 
+## Output layout
+
+By default every PDF gets its own folder inside the workspace (repository) that is open,
+so images never pile up next to the source file:
+
+```
+<workspace>/extracted/<pdf-name>/
+├── <pdf-name>.md
+├── image-001.png
+└── image-002.png
+```
+
+Image links in the markdown are relative (`![](image-001.png)`), so a folder can be moved
+as a unit and still renders correctly.
+
+| Parameter        | Default                                          | Meaning                                                 |
+| ---------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| `file_path`      | —                                                | absolute path to the PDF                                |
+| `image_path`     | `<workspace>/extracted/<pdf-name>/`              | image directory; setting it restores upstream behaviour |
+| `save_path`      | `<workspace>/extracted/<pdf-name>/<pdf-name>.md` | markdown file; setting it restores upstream behaviour   |
+| `workspace_root` | auto-detected                                    | repository root                                         |
+| `output_dir`     | `extracted`                                      | subfolder holding all extractions                       |
+| `overwrite`      | `false`                                          | replace a previous extraction of the same PDF           |
+
+The workspace is resolved from `workspace_root`, then `PYMUPDF4LLM_WORKSPACE`,
+`OPENCODE_PROJECT_DIR` / `OPENCODE_DIRECTORY`, the git root of the working directory, the git
+root of the PDF's ancestors, and finally the working directory. `$HOME` is never used, so an
+MCP client that starts the server from the home directory gets a clear error instead of files
+scattered outside the project.
+
+Extracting the same PDF twice is refused until `overwrite=true`, which deletes only the files
+inside that one extraction folder. The source PDF is never modified.
+
 ## Testing
 
 Ensure you have Snapshot installed:
