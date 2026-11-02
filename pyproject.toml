@@ -17,7 +17,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "mcp[cli]>=1.6.0",
+    "mcp[cli]>=1.6.0,<2",
     "pydantic>=2.11.3",
     "pymupdf4llm==1.28.0",
     "typer>=0.15.2",
