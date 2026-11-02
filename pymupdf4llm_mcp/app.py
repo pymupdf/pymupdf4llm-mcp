@@ -5,7 +5,10 @@ import pymupdf4llm
 from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
-mcp = FastMCP("pymupdf4llm-mcp")
+# Explicit log level: an invalid LOG_LEVEL in the environment otherwise fails
+# validation at startup and the server never comes up.
+# mcp 2.x drops mcp.server.fastmcp, hence the <2 pin in pyproject.toml.
+mcp = FastMCP("pymupdf4llm-mcp", log_level="INFO")
 
 
 @mcp.tool(
@@ -47,7 +50,6 @@ def convert_pdf_to_markdown(
         if save_path:
             save_path: Path = Path(save_path).expanduser().resolve()
             save_path.parent.mkdir(parents=True, exist_ok=True)
-            content = pymupdf4llm.to_markdown(file_path, write_images=True, image_path=image_path.as_posix())
             with open(save_path, "w", encoding="utf-8") as f:
                 f.write(content)
             return {
