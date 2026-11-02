@@ -1,6 +1,6 @@
 [project]
 name = "pymupdf4llm-mcp"
-version = "1.28.0"
+version = "1.29.0"
 description = "MCP Server for pymupdf4llm"
 authors = [{ name = "Artifex Software, Inc.", email = "info@artifex.com" }]
 readme = "README.md"
